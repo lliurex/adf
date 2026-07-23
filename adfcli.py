@@ -188,6 +188,7 @@ class ADFCLI:
                 print("For unattended user creation, you must provide --username, --surname, --type and --password.")
                 sys.exit(1)
             self.unatended_add_user(user, args.username, args.surname, args.type, args.password)
+            sys.exit(0)
         if action == "add":
             self.add_user(user)
         elif action == "remove":
