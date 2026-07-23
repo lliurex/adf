@@ -182,7 +182,12 @@ class ADFCLI:
                 passwd_file.write(f"{user.serialize()}\n")
                 shadow_file.write(f"{user.login}:{user.get_hash_password()}\n")
 
-    def run(self, action, user):
+    def run(self, action, user, args):
+        if args.unattended:
+            if not args.username or not args.surname or not args.type or not args.password:
+                print("For unattended user creation, you must provide --username, --surname, --type and --password.")
+                sys.exit(1)
+            self.unatended_add_user(user, args.username, args.surname, args.type, args.password)
         if action == "add":
             self.add_user(user)
         elif action == "remove":
@@ -196,7 +201,7 @@ class ADFCLI:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="ADF CLI")
     # add optional argument for unattended user creation with username, surname, type and password 
-    parser.add_argument("--unattended", action="store_true", help="Unattended user creation")
+    parser.add_argument("--unattended",action="store_true", help="Unattended user creation")
     parser.add_argument("action", choices=["add", "remove"])
     parser.add_argument("login")
     parser.add_argument("--username","-u", help="Username for unattended user creation")
@@ -205,5 +210,5 @@ if __name__ == "__main__":
     parser.add_argument("--password","-p", help="Password for unattended user creation")
     args = parser.parse_args()
     adf_cli = ADFCLI()
-    adf_cli.run(args.action, args.login)
+    adf_cli.run(args.action, args.login, args)
     sys.exit(0)
