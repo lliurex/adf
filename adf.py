@@ -24,7 +24,7 @@ class Easy(BasePlugin):
                             return None, GvaGateError.Error
                         result = {
                             'login': user_info[0],
-                            'uid': user_info[1],
+                            'uid': int(user_info[1]),
                             'name': user_info[2],
                             'surname': user_info[3],
                             'user_type': user_info[4]

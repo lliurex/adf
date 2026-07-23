@@ -1,3 +1,3 @@
 {
-	"auth_methods": {"value":"easy","priority":1500,"unique":false}
+	"auth_methods": {"value":"adf","priority":0,"unique":false}
 }
